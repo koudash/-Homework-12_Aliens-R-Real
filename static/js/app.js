@@ -1,69 +1,121 @@
-// from data.js
-const tableData = data;
+// Variables on current layer of filter
+var basicLiTagId = 'filter-li-tag-';
+var basicLiTagValueId = 'filter-li-tag-value-';
+var basicSelTagId = 'filter-sel-tag-';
+var basicSelTagValueId = 'filter-sel-tag-value-';
+var basicOptTagClass = 'filter-opt-tag-';
+var basicOptTagValueClass = 'filter-opt-tag-value-';
 
-// Select the "Filter Table" button
-var submit = d3.select('#filter-btn');
+var ulTag = d3.select('#filters-tag');
+var ulTagValue = d3.select('#filters-tag-value');
 
-submit.on('click', function() {
+var currLayer = 1;
 
-    // Prevent the webpage from refreshing
-    d3.event.preventDefault();
+var currLiTagId = basicLiTagId + currLayer.toString();
+var currLiTagValueId = basicLiTagValueId + currLayer.toString();
+var currSelTagId = basicSelTagId + currLayer.toString();
+var currSelTagValueId = basicSelTagValueId + currLayer.toString();
+var currOptTagClass = basicOptTagClass + currLayer.toString();
+var currOptTagValueClass = basicOptTagValueClass + currLayer.toString();
 
-    // Select the input element and get the raw HTML node
-    let inputElement = d3.select('#datetime');
+var currAvailDataset = data;
+// Array to store filter tags
+var currAvailFilter = ['datetime', 'city', 'state', 'country', 'shape'];
+// Array to store tag names for ufo dataset
+const datasetTag = ['datetime', 'city', 'state', 'country', 'shape', 'durationMinutes', 'comments'];
 
-    // Get the value property of the input element
-    // With 'date/time' being set as filter, change input type as 'date' to unify user input
-    let inputValue = dateFormater(inputElement.property('value'));
 
-    // // Check 'inputValue'
-    // console.log(inputValue);
 
-    // Retrieve data that meets the filting criteria
-    let filteredData = tableData.filter((record) => record.datetime === inputValue);
-    
-    // // check 'filteredData'
-    // console.log(filteredData);
+// Locate current "select" element for filter tags
+var currSelTag = d3.select(`#${currSelTagId}`);
+// Locate current "select" element for available filter tag values
+var currSelTagValue = d3.select(`#${currSelTagValueId}`);
 
-    // Save detailed data correspondingly in designated arrays
-    let dates = filteredData.map((record) => record.datetime);
-    let cities = filteredData.map((record) => record.city);
-    let states = filteredData.map((record) => record.state);
-    let cntries = filteredData.map((record) => record.country);
-    let shapes = filteredData.map((record) => record.shape);
-    let durMins = filteredData.map((record) => record.durationMinutes);
-    let comments = filteredData.map((record) => record.comments);
 
-    // Locate 'tbody'
-    let tbody = d3.select('tbody');
+// Event handler for "currSelTag"
+currSelTag.on('change', function () {
 
-    for (let i=0; i<filteredData.length; i++) {
-        tr = tbody.append('tr');
-        tr.append('td').text(dates[i]);
-        tr.append('td').text(cities[i]);
-        tr.append('td').text(states[i]);
-        tr.append('td').text(cntries[i]);
-        tr.append('td').text(shapes[i]);
-        tr.append('td').text(durMins[i]);
-        tr.append('td').text(comments[i]);        
-    }
+    // Retrieve selected filter tag
+    var currFilter = this.value;
 
+    // Reset/Clear array for current available tag values
+    var currAvailTagValue = [];
+
+    // Clear the dropdown menu for pre-existing filter tag values if any
+    d3.selectAll(`.${currOptTagValueClass}`).remove();
+
+    // Generate array of unique filter values
+    currAvailTagValue = uniqueFilterValue(currFilter, currAvailDataset);
+
+    // Change text in "Filter value" box once filter tag has been selected on the left
+    currSelTagValue.select('option').text('Select a value');
+
+    // Display unique filtered tag value in dropdown menu
+    currAvailTagValue.forEach((myValue) => {
+        // Append "option" to "select"
+        let opt = currSelTagValue.append('option');
+        // Attribute "value" to "option"
+        opt.attr('value', myValue).text(myValue);
+        // Attribute "class" to "option" to facilitate removal
+        opt.attr('class', `${currOptTagValueClass}`);
+    });
 });
 
+// Event handler for "currSelTagValue"
+currSelTagValue.on('change', function () {
+    
+    // Retrieve selected filter tag
+    var currFilterValue = this.value;
+
+    // Reset "currAvailDataset" everytime event on the left fires
+    currAvailDataset = data;
+    
+    // Update "currAvailDataset" based on selected filter tag value
+    currAvailDataset = currAvailDataset.filter((myData) => Object.values(myData).includes(currFilterValue));
+});
+
+
+// Select the "Submit" button
+var submit = d3.select('#filter-submit');
+
+// Event handler for "Submit" button
+submit.on('click', function() {
+
+    // Prevent the webpage from self-refreshing
+    d3.event.preventDefault();
+
+    // Locate "tbody"
+    let tbody = d3.select('tbody');
+
+    // Clear previous "tr" with the class of 'tr-data'
+    d3.selectAll('.tr-data').remove();
+
+    // Display filtered data
+    currAvailDataset.forEach((myData) => {
+        // Append "tr" to "tbody", assigning 'class' value to facilitate removal 
+        let tr = tbody.append('tr').attr('class', 'tr-data');
+        // Append "td" with filtered data to "tr"
+        datasetTag.forEach((tag) => {
+            tr.append('td').text(myData[tag]);
+        });
+    });   
+});    
+
+
+
+
+
 /**
- * Input: in 'yyyy-mm-dd' format  
- * Output: in 'm/d/yyyy' format 
- * @param {string} date 
+ * Returns array of unique values of the key in array of objects
+ * @param {*} myKey Key in objects from the array
+ * @param {*} myArrayOfObjects Dataset with array of objects structure
  */
-function dateFormater(date) {
-    // Divide date into array of ['m', 'd', 'yyyy']
-    let dateArray = date.split('-');
-    // Remove '0' in tens from month and date digits whose value is less than 10 
-    for (let i=1; i<3; i++) {
-        dateArray[i] = parseInt(dateArray[i]).toString();
+function uniqueFilterValue(myKey, myArrayOfObjects) {
+    let newArray =[];
+    for (let i=0; i<myArrayOfObjects.length; i++) {
+        if (!newArray.includes(myArrayOfObjects[i][myKey])) {
+            newArray.push(myArrayOfObjects[i][myKey]);
+        }
     }
-    // Join 'm', 'd', and 'yyyy' to make 'newDate' in 'm/d/yyyy' format
-    newDate = dateArray[1] + '/' +dateArray[2] + '/' + dateArray[0];
-    // Return 'newDate'
-    return newDate;
+    return newArray;
 }
