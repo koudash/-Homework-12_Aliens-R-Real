@@ -158,6 +158,9 @@ d3.selectAll('.sel-filter-value-tag').on("change", function() {
 // Event listener for 'Add Filter' button
 addFilter.on("click", function() {
 
+    // Prevent the webpage from self-refreshing
+    d3.event.preventDefault();
+
     // Add 1 to number of applied filters
     maxLayer += 1;
 
@@ -207,9 +210,13 @@ addFilter.on("click", function() {
 // Event listener for 'Delete Filter' button
 delFilter.on("click", function() {
 
+    // Prevent the webpage from self-refreshing
+    d3.event.preventDefault();
+
     // Retrieve active layer
     let activeLayer = parseInt(this.id.split('-')[3]);
-    
+    console.log(activeLayer)
+
     // Generate 'id' names for 'li' elements in the same layer
     let paralLiFilterId = basicLiFilterTag + activeLayer.toString();
     let paralLiFilterValueId = basicLiFilterValueTag + activeLayer.toString();
