@@ -1,107 +1,37 @@
-/* >>>>>>>>>>PAGE LAYOUT START>>>>>>>>>> */
-/* pg-lyt-body */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-/* ||pg-lyt-container|| */
-#pg-lyt-container {
-  min-height: 100%;
-  position: relative;
-  background-color: black;
-  overflow: auto;
-}
-
-/* |||pg-lyt-body||| */
-#pg-lyt-body {
-  padding: 10px;
-  padding-bottom: 70px;
-}
-
-/* |||pg-lyt-footer||| */
-#pg-lyt-footer {
-  position: relative;
-  width: 100%;
-  bottom: 0;
-  height: 70px;
-  text-align: center;
-  color: white;
-}
-/* <<<<<<<<<<PAGE LAYOUT END<<<<<<<<<< */
-
-
-.table-bg-change {
-  background-color: black !important;
-  width: 50%;
-}
-
-
-
-#hr-footer {
-  display: block;
-  border: 2px solid #8e979f;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 * {
   box-sizing: border-box;
   font-family: Ubuntu, sans-serif;
 }
 
+/* Setup striped color for table */
+/* Ref: https://stackoverflow.com/questions/20825211/bootstrap-table-striped-how-do-i-change-the-stripe-background-colour */
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: #8e979f;
+}
+.table-striped > tbody > tr:nth-child(2n) > td {
+  background-color: dimgray;
+}
 
-
-
-
-.navbar {
-  padding: 5px;
-  margin: 0;
+/* Setup hover color for table */
+/* Ref: https://stackoverflow.com/questions/15643037/how-do-i-change-the-hover-over-color-for-a-hover-over-table-in-bootstrap */
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: black;
 }
 
 /* This CSS styles the ufo icon in the navbar */
 .nav-ufo {
   position: absolute;
-  bottom: 5px;
-  left: 150px;
+  bottom: 10%;
+  left: 160px;
   width: 35px;
-  color: white;
-}
-
-/* Adding styles to the aside and filter form */
-.ufo-form {
-  margin-top: 50px;
-}
-
-.filters .panel-body {
-  padding: 0;
-}
-
-.filters {
-  margin-top: 10px;
 }
 
 select {
   display: block;
   width: 100%;
   padding: 8px;
-  color: #8e979f;
+  color: deepskyblue;
   outline: none;
-}
-
-#table-area th {
-  text-align: center;
 }
 
 #table-area th:first-child,
@@ -110,21 +40,11 @@ select {
   min-width: 70px;
 }
 
-.loader {
-  margin-top: 50px;
-}
-
-.margin-top-50 {
-  margin-top: 50px;
-}
-
 /* The styles for the parallax */
 .hero {
-  position: relative;
-  height: 550px;
-  padding: 20px;
+  padding: 10px;
   margin: 0;
-  background: black;
+  background: deepskyblue;
   background-image: url("../images/nasa.jpg");
   background-attachment: fixed;
   background-position: bottom center;
@@ -132,13 +52,12 @@ select {
 }
 
 .hero h1 {
-  margin-top: 200px;
   font-size: 0.1rem;
   animation: title 1.2s forwards linear;
 }
 
 .hero p {
-  font-size: 2rem;
+  font-size: 2.5rem;
   opacity: 0;
   animation: subtitle 1.2s forwards linear;
   animation-delay: 1.2s;
