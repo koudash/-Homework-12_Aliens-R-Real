@@ -1,3 +1,6 @@
+// >>>>>>>>>>>>>>> GLOBALLY DEFINED VARIABLES >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>            START           >>>>>>>>>>>>>>>
+
 // Basic html element filter tag
 var basicLiFilterTag = 'li-filter-tag-';
 var basicLiFilterValueTag = 'li-filter-value-tag-';
@@ -35,6 +38,9 @@ const availFilters = ['datetime', 'city', 'state', 'country', 'shape'];
 const tableCol = ['datetime', 'city', 'state', 'country', 'shape', 'durationMinutes', 'comments'];
 
 
+// >>>>>>>>>>>>>>> EVENT LISTENER 1 >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>       START      >>>>>>>>>>>>>>>
+
 // Event listener ("mousedown") for active 'select' element with the class name of 'sel-filter-tag'
 d3.selectAll('.sel-filter-tag').on("mousedown", function() {
 
@@ -45,7 +51,7 @@ d3.selectAll('.sel-filter-tag').on("mousedown", function() {
     let activeFilter = this.value;
 
     // Validate "change"
-    console.log(`${activeFilter} is the currently applied filter on layer ${activeLayer}.`);
+    console.log(`'mousedown' event: ${activeFilter} is the currently applied filter on layer ${activeLayer}.`);
 
     // Generate 'id' name for current active 'select' element
     let currSelFilterId = basicSelFilterTag + activeLayer.toString();
@@ -75,6 +81,9 @@ d3.selectAll('.sel-filter-tag').on("mousedown", function() {
 });
 
 
+// >>>>>>>>>>>>>>> EVENT LISTENER 2 >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>       START      >>>>>>>>>>>>>>>
+
 // Event listener for active 'select' element with the class name of 'sel-filter-tag'
 d3.selectAll('.sel-filter-tag').on("change", function() {
 
@@ -84,7 +93,8 @@ d3.selectAll('.sel-filter-tag').on("change", function() {
     let activeLayer = parseInt(this.id.split('-')[3]);
 
     // Validate "change"
-    console.log(`${activeFilter} is the currently applied filter on layer ${activeLayer}.`);
+    console.log(`'change' event (filter): ${activeFilter} is the currently applied filter on layer ${activeLayer}.`);
+    console.log(d3.selectAll('.sel-filter-tag'));
        
     // Update name of applied filter on active layer in "appliedFilterInfo"
     appliedFilterInfo[activeLayer] = [activeFilter];
@@ -121,6 +131,9 @@ d3.selectAll('.sel-filter-tag').on("change", function() {
 });
 
 
+// >>>>>>>>>>>>>>> EVENT LISTENER 3 >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>       START      >>>>>>>>>>>>>>>
+
 // Event listener for active 'select' element with the class name of 'sel-filter-value-tag'
 d3.selectAll('.sel-filter-value-tag').on("change", function() {
 
@@ -130,7 +143,7 @@ d3.selectAll('.sel-filter-value-tag').on("change", function() {
     let activeLayer = parseInt(this.id.split('-')[4]);
 
     // Validate "change"
-    console.log(`${activeFilterValue} is selected on current active layer ${activeLayer}.`);
+    console.log(`'change event (filter value): ${activeFilterValue} is selected on current active layer ${activeLayer}.`);
 
     // Update value of applied filter on active layer in "appliedFilterInfo"
     if (appliedFilterInfo[activeLayer].length === 1) {
@@ -154,6 +167,9 @@ d3.selectAll('.sel-filter-value-tag').on("change", function() {
 
 });
 
+
+// >>>>>>>>>>>>>>> EVENT LISTENER 4 >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>       START      >>>>>>>>>>>>>>>
 
 // Event listener for 'Add Filter' button
 addFilter.on("click", function() {
@@ -202,41 +218,55 @@ addFilter.on("click", function() {
         addFilter.attr('disabled', true);
     }
     // CAN BE FOUND IF SELECT FROM THE SAME EVENT LISTENER
+    console.log(`'Add Filter' event: there are ${maxLayer} layers of filters`)
     console.log(d3.selectAll('.sel-filter-tag'));
   
 });
 
 
+// >>>>>>>>>>>>>>> EVENT LISTENER 5 >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>       START      >>>>>>>>>>>>>>>
+
 // Event listener for 'Delete Filter' button
 delFilter.on("click", function() {
 
-    // Prevent the webpage from self-refreshing
-    d3.event.preventDefault();
+    if (maxLayer === 1) {
 
-    // Retrieve active layer
-    let activeLayer = parseInt(this.id.split('-')[3]);
-    console.log(activeLayer)
+        alert('Not an option with only one filter layer!!!');
+        
+    } else {
 
-    // Generate 'id' names for 'li' elements in the same layer
-    let paralLiFilterId = basicLiFilterTag + activeLayer.toString();
-    let paralLiFilterValueId = basicLiFilterValueTag + activeLayer.toString();
-    let activeLiFilterDelId = basicLiFilterDel + activeLayer.toString();   
+        // Prevent the webpage from self-refreshing
+        d3.event.preventDefault();
 
-    // Remove 'li' elements
-    d3.select(`#${paralLiFilterId}`).remove();    
-    d3.select(`#${paralLiFilterValueId}`).remove();    
-    d3.select(`#${activeLiFilterDelId}`).remove();
-    
-    // Update "appliedFilterInfo"
-    appliedFilterInfo = appliedFilterInfo.filter((d) => !Object.keys.includes(d));
+        // Retrieve active layer
+        let activeLayer = parseInt(this.id.split('-')[3]);
+        console.log(activeLayer)
 
-    // Enable "Add Filter" button if there is data in filtered UFO dataset
-    if (availFilteredDataset() !== []) {
-        addFilter.attr('disabled', null);
+        // Generate 'id' names for 'li' elements in the same layer
+        let paralLiFilterId = basicLiFilterTag + activeLayer.toString();
+        let paralLiFilterValueId = basicLiFilterValueTag + activeLayer.toString();
+        let activeLiFilterDelId = basicLiFilterDel + activeLayer.toString();   
+
+        // Remove 'li' elements
+        d3.select(`#${paralLiFilterId}`).remove();    
+        d3.select(`#${paralLiFilterValueId}`).remove();    
+        d3.select(`#${activeLiFilterDelId}`).remove();
+
+        // Update "appliedFilterInfo"
+        appliedFilterInfo = appliedFilterInfo.filter((d) => !Object.keys.includes(d));
+
+        // Enable "Add Filter" button if there is data in filtered UFO dataset
+        if (availFilteredDataset() !== []) {
+            addFilter.attr('disabled', null);
+        }
     }
 
 });
 
+
+// >>>>>>>>>>>>>>> EVENT LISTENER 6 >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>       START      >>>>>>>>>>>>>>>
 
 // Event listener for "Submit" button
 submit.on('click', function() {
@@ -268,6 +298,10 @@ submit.on('click', function() {
 });
 
 
+// >>>>>>>>>>>>>>> GLOBALLY DEFINED FUNCTION >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>            START          >>>>>>>>>>>>>>>
+
+// .......... FUNCTION 1 ..........
 /**
  * Return array of unique values for the key in array of objects
  * @param {*} myKey Key in objects from the array
@@ -283,6 +317,7 @@ function uniqueFilterValue(myKey, myArrayOfObjects) {
     return newArray;
 }
 
+// .......... FUNCTION 2 ..........
 /**
  * Apply filters from "appliedFilterInfo" to "ufoDataset" and return currently available ufo dataset
  */
@@ -304,6 +339,7 @@ function availFilteredDataset() {
     return currAvailUfoDataset;
 }
 
+// .......... FUNCTION 3 ..........
 /**
  * Return available filter for current "appliedFilterInfo"
  */
