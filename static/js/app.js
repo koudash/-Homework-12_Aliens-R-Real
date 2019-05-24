@@ -52,6 +52,7 @@ d3.selectAll('.sel-filter-tag').on("mousedown", function() {
 
     // Validate "change"
     console.log(`'mousedown' event: ${activeFilter} is the currently applied filter on layer ${activeLayer}.`);
+    console.log(`'mousedown' event: d3.selection identifies ${d3.selectAll('.sel-filter-tag').size()} targeted 'select' tags.`);
 
     // Generate 'id' name for current active 'select' element
     let currSelFilterId = basicSelFilterTag + activeLayer.toString();
@@ -94,7 +95,7 @@ d3.selectAll('.sel-filter-tag').on("change", function() {
 
     // Validate "change"
     console.log(`'change' event (filter): ${activeFilter} is the currently applied filter on layer ${activeLayer}.`);
-    console.log(d3.selectAll('.sel-filter-tag'));
+    console.log(`'change' event (filter): d3.selection identifies ${d3.selectAll('.sel-filter-tag').size()} targeted 'select' tags.`);
        
     // Update name of applied filter on active layer in "appliedFilterInfo"
     appliedFilterInfo[activeLayer] = [activeFilter];
@@ -218,8 +219,8 @@ addFilter.on("click", function() {
         addFilter.attr('disabled', true);
     }
     // CAN BE FOUND IF SELECT FROM THE SAME EVENT LISTENER
-    console.log(`'Add Filter' event: there are ${maxLayer} layers of filters`)
-    console.log(d3.selectAll('.sel-filter-tag'));
+    console.log(`'Add Filter' event: there are ${maxLayer} layers of filters now.`)
+    console.log(`'Add Filter' event: d3.selection identifies ${d3.selectAll('.sel-filter-tag').size()} targeted 'select' tags.`);
   
 });
 
