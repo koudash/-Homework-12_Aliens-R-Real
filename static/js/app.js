@@ -31,7 +31,9 @@ const filterLayerArr = ['alligator', 'bison', 'cougar', 'coyote', 'raccoon'];
 // Keys of UFO data
 const tableCol = ['datetime', 'city', 'state', 'country', 'shape', 'durationMinutes', 'comments'];
 
-// Event listeners for dropdown menu in the forms
+// Event listeners whose selection need to be updated once new elements are appended by javascript
+// Function before "Add Filter" button is clicked
+// Counterparts inside "add filter event listener" take over the work after "Add Filter" button is clicked
 formDisplayAvailFilters();
 formSelectFilterName();
 formSelectFilterValue();
@@ -88,7 +90,7 @@ butAddEle.on("click", function() {
         butAddEle.attr('disabled', true);
     }
 
-    // VERY IMPORTANT: EVENT LISTENERS NEED TO BE UPDATED TO GRAP NEWLY APPENDED 'SELECT' ELEMENTS ONCE NEW FILTER IS ADDED
+    // VERY IMPORTANT: EVENT LISTENERS NEED TO BE UPDATED TO GRAB NEWLY APPENDED 'SELECT' ELEMENTS OR 'DELETE FILTER' BUTTON ONCE NEW FILTER IS ADDED
     // Note that passing d3.selectAll('.sel-filter-tag') to globally defined variable does not work
     formDisplayAvailFilters();
     formSelectFilterName();
@@ -108,7 +110,6 @@ d3.select('#filter-submit').on('click', function() {
 
     // Clear contents in 'tbody' element
     tbody.html("");
-
     // Display filtered data in table
     availFilteredUfoDataset().forEach((d) => {
         // Append "tr" to "tbody"
@@ -134,13 +135,17 @@ d3.select('#filter-submit').on('click', function() {
  * @param {*} myArrayOfObjects Dataset with array of objects structure
  */
 function uniqueFilterValue(myKey, myArrayOfObjects) {
+
+    // New array to store unique values of given filter
     let newArray =[];
+    // Push unique values of given filter to "newArray"
     for (let i=0; i<myArrayOfObjects.length; i++) {
         if (!newArray.includes(myArrayOfObjects[i][myKey])) {
             newArray.push(myArrayOfObjects[i][myKey]);
         }
     }
     return newArray;
+
 }
 
 // .......... FUNCTION 2 ..........
@@ -163,6 +168,7 @@ function availFilteredUfoDataset() {
     }
     // Return array containing currently availalbe ufo dataset as callback value
     return currAvailUfoDataset;
+
 }
 
 // .......... FUNCTION 3 ..........
@@ -170,6 +176,7 @@ function availFilteredUfoDataset() {
  * Return available filter for current "usedFilterInfo"
  */
 function getCurrAvailFilter() {
+
     // Retrieve array containing each unavailable (applied) filter tags w/o values
     let usedFilterArr = Object.values(usedFilterInfo);    
     // Retrieve array containing currently applied filter tags
@@ -178,6 +185,7 @@ function getCurrAvailFilter() {
     let currAvailFilter = ufoFilterArr.filter((ele) => !currUnavailFilter.includes(ele));
     // Return array containing currently available filters as callback value
     return currAvailFilter;
+
 }
 
 // .......... FUNCTION 4 ..........
@@ -254,6 +262,7 @@ function formDisplayAvailFilters() {
         // PUTTING IT BACK TO AVAILABLE FILTER ARRAY TO BE APPENDED TOGETHER WILL OTHERWISE RENDER A SWITCH BY SHOWING THE FIRST FILTER NAME IN ALPHABETICAL ORDER, WHICH MESSED UP THE ENTIRE LIST
 
     });
+
 }
 
 // ** ********************************************************************************************//
@@ -298,8 +307,10 @@ function formSelectFilterName() {
         availUniqueFilterValueArr.forEach((filterValue) => {
             eventSelValueEle.append('option').attr('value', filterValue).attr('class', `${eventOptValueClass}`).text(filterValue);
 
-        });     
+        });
+
     });
+
 }
 
 // ** ********************************************************************************************//
@@ -342,7 +353,9 @@ function formSelectFilterValue() {
                 butAddEle.attr('disabled', null);
             }
         }
+
     });
+
 }
 
 
@@ -387,5 +400,7 @@ function butDelFilter() {
                 butAddEle.attr('disabled', null);
             }
         }
+
     });
+    
 }
