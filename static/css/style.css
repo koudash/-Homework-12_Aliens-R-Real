@@ -3,6 +3,22 @@
   font-family: Ubuntu, sans-serif;
 }
 
+.card {
+  border: none;
+}
+
+.card-header {
+  background-color:#485563;
+}
+
+.card-body {
+  background-color:#495F73;
+}
+
+.list-group-item {
+  background-color: #495F73;
+}
+
 /* Setup striped color for table */
 /* Ref: https://stackoverflow.com/questions/20825211/bootstrap-table-striped-how-do-i-change-the-stripe-background-colour */
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
@@ -15,7 +31,7 @@
 /* Setup hover color for table */
 /* Ref: https://stackoverflow.com/questions/15643037/how-do-i-change-the-hover-over-color-for-a-hover-over-table-in-bootstrap */
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: black;
+  background-color: deepskyblue;
 }
 
 /* This CSS styles the ufo icon in the navbar */
@@ -32,6 +48,7 @@ select {
   padding: 8px;
   color: deepskyblue;
   outline: none;
+  font-size: 15px;
 }
 
 #table-area th:first-child,
@@ -66,28 +83,41 @@ select {
 /* input placeholder color changes */
 .form-control::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  color: #8e979f;
+  color: deepskyblue;
 }
 
 .form-control::-moz-placeholder {
   /* Firefox 19+ */
-  color: #8e979f;
+  color: deepskyblue;
 }
 
 .form-control:-ms-input-placeholder {
   /* IE 10+ */
-  color: #8e979f;
+  color: deepskyblue;
 }
 
 .form-control:-moz-placeholder {
   /* Firefox 18- */
-  color: #8e979f;
+  color: deepskyblue;
 }
 
 /* media queries which will only be activated at specific screen sizes */
 @media (max-width: 800px) {
   #table-area td {
     font-size: 1em;
+  }
+}
+
+
+@media (max-width: 800px) {
+  .btn-filter-del {
+    font-size: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .btn-filter-del {
+    font-size: 90%;
   }
 }
 

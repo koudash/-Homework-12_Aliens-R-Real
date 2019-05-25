@@ -33,70 +33,52 @@
                     </div>
                 </div>
             </nav>
-            <div class='layout-child-body py-4'>
+            <div class='layout-child-body py-5'>
                 <div class="hero text-center">
                     <h1 class='mt-5 pt-3 h-100'>UFO Sightings</h1>
                     <p class='text-warning'>The Truth is Out There</p>
                 </div>                                
                 <div class="container">
                     <div class="row justify-content-center pt-5">
-                        <div class="col-sm-11">                    
-                            <div class="panel panel-default mb-0">
-                                <div class="panel-heading font-weight-bold">Filter Search</div>                                    
-                                <div class="panel-body p-0"> 
-                                    <div class="row justify-content-left"> 
-                                        <div class="col-sm-5">                                            
-                                            
-                                            <form>
-                                                <div class="form-group">
-                                                    <ul class="list-group" id="ul-filter-tag">
-                                                        <li class="list-group-item" id="li-filter-tag-alligator">
-                                                            <label for="sel-filter-tag-alligator">Filter</label>
-                                                            <select class="sel-filter-tag" id="sel-filter-tag-alligator">
-                                                                <!-- Set placeholder for filter dropdown menu -->
-                                                                <option value='placeholder' selected hidden>Select a filter</option>                                                            
-                                                            </select>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </form>
-
+                        <div class="col-10 px-0">                    
+                            <div class="card mb-3">
+                                <div class="card-header font-weight-bold">Filter Search</div>                                    
+                                <div class="card-body p-0"> 
+                                    <form>
+                                        <div class="form-row">
+                                            <div class='form-group col-3'>
+                                                <ul class="list-group" id="ul-filter-tag">
+                                                    <li class="list-group-item form-control-lg my-5" id="li-filter-tag-alligator">
+                                                        <label for="sel-filter-tag-alligator">Filter</label>
+                                                        <select class="sel-filter-tag" id="sel-filter-tag-alligator">
+                                                            <!-- Set placeholder for filter dropdown menu -->
+                                                            <option value='placeholder' selected hidden>Select a filter</option>                                                            
+                                                        </select>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class='form-group col-6'>
+                                                <ul class="list-group" id="ul-filter-value">
+                                                    <li class="list-group-item form-control-lg my-5" id="li-filter-value-alligator">
+                                                        <label for="sel-filter-value-alligator">Filter value</label>
+                                                        <select class="sel-filter-value" id="sel-filter-value-alligator">
+                                                            <!-- Set placeholder for filter dropdown menu -->
+                                                            <option value='placeholder' selected hidden>Choose a filter from left</option>                                                            
+                                                        </select>
+                                                    </li>
+                                                </ul> 
+                                            </div>                                                    
+                                            <div class='form-group col-3'>
+                                                <ul class="list-group" id="ul-filter-del">
+                                                    <li class="list-group-item form-control-lg my-5 px-0" id="li-filter-del-alligator">
+                                                        <br/>
+                                                        <button id="btn-filter-del-alligator" type="button" class="btn btn-filter-del btn-outline-danger font-weight-bold">Delete Filter</button>
+                                                    </li>
+                                                </ul>  
+                                            </div> 
                                         </div>
-
-                                        <div class="col-sm-5">
-
-                                            <form>
-                                                <div class="form-group">
-                                                    <ul class="list-group" id="ul-filter-value">
-                                                        <li class="list-group-item" id="li-filter-value-alligator">
-                                                            <label for="sel-filter-value-alligator">Filter value</label>
-                                                            <select class="sel-filter-value" id="sel-filter-value-alligator">
-                                                                <!-- Set placeholder for filter dropdown menu -->
-                                                                <option value='placeholder' selected hidden>Choose a filter from left</option>                                                            
-                                                            </select>
-                                                        </li>
-                                                    </ul>                                                
-                                                </div>
-                                            </form>
-
-                                        </div>
-
-                                        <div class="col-sm-1">
-
-                                            <form>
-                                                <div class="form-group">
-                                                    <ul class="list-group" id="ul-filter-del">
-                                                        <li class="list-group-item" id="li-filter-del-alligator">
-                                                            <label for="btn-filter-del-alligator"></label>
-                                                            <button id="btn-filter-del-alligator" type="button" class="btn btn-filter-del btn-outline-danger font-weight-bold">Delete Filter</button>
-                                                        </li>
-                                                    </ul>                                                
-                                                </div>
-                                            </form>
-    
-                                        </div>                                        
-                                    </div>
-                                    <div class="d-flex flex-row-reverse text-white">
+                                    </form>  
+                                    <div class="d-flex flex-row-reverse text-white mt-3">
                                         <button id="filter-submit" type="submit" class="btn btn-info font-weight-bold">Submit</button>
                                         <button id="filter-add" type="submit" class="btn btn-outline-success font-weight-bold">Add Filter</button>   
                                     </div>

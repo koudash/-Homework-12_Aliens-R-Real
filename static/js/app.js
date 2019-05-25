@@ -64,13 +64,13 @@ butAddEle.on("click", function() {
     let newBtnDelId = basicBtnDel + newLayer;
 
     // Append new 'li' element to 'ulTagEle', 'ulValueEle', and 'ulDelEle' with 'class' and 'id', respectively
-    let newLiTagEle = ulTagEle.append('li').attr('class', 'list-group-item').attr('id', `${newLiTagId}`);
-    let newLiValueEle = ulValueEle.append('li').attr('class', 'list-group-item').attr('id', `${newLiValueId}`);
-    let newLiDelEle = ulDelEle.append('li').attr('class', 'list-group-item').attr('id', `${newLiDelId}`);
+    let newLiTagEle = ulTagEle.append('li').attr('class', 'list-group-item form-control-lg my-5').attr('id', `${newLiTagId}`);
+    let newLiValueEle = ulValueEle.append('li').attr('class', 'list-group-item form-control-lg my-5').attr('id', `${newLiValueId}`);
+    let newLiDelEle = ulDelEle.append('li').attr('class', 'list-group-item form-control-lg my-5 px-0').attr('id', `${newLiDelId}`);
     // Append new 'label' element to new 'li' in all forms, respectively
     newLiTagEle.append('label').attr('for', `${newSelTagId}`).text("Filter");
     newLiValueEle.append('label').attr('for', `${newSelValueId}`).text("Filter value");
-    newLiDelEle.append('label').attr('for', `${newBtnDelId}`);
+    newLiDelEle.append('br');
     // Append new 'button' element to new 'li' with 'id', 'type', and 'class'
     newLiDelEle.append('button').attr('id', `${newBtnDelId}`).attr('type', 'submit').attr('class', 'btn btn-filter-del btn-outline-danger font-weight-bold').text("Delete Filter");
     // Append new 'select' element to new 'li' with 'class' and 'id', respectively
