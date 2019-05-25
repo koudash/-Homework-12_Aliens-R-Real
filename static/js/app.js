@@ -19,9 +19,6 @@ var ulDelEle = d3.select('#ul-filter-del');
 // Locate 'button' element for "Add Filter"
 var butAddEle = d3.select('#filter-add');
 
-// Number of filters applied on dataset, default value equals to 1
-var maxLayer = 1;
-
 // Object to store applied filter names and layers
 var usedFilterInfo = {'alligator': []};
 
@@ -99,30 +96,21 @@ butAddEle.on("click", function() {
     butDelFilter();
 });
 
-
-
-
-
-// >>>>>>>>>>>>>>> EVENT LISTENER 6 >>>>>>>>>>>>>>>
-// >>>>>>>>>>>>>>>       START      >>>>>>>>>>>>>>>
-
-// Event listener for "Submit" button
+// >>>>>>>>>>>>>>>    EVENT LISTENER    >>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>    BUTTON: SUBMIT    >>>>>>>>>>>>>>>
 d3.select('#filter-submit').on('click', function() {
 
     // Prevent the webpage from self-refreshing
     d3.event.preventDefault();
 
-    // Locate "tbody"
+    // Locate "tbody" element
     let tbody = d3.select('tbody');
 
-    // Clear contents in 'tbody'
-    tbody.html('');
-
-    // Determine currently available filtered UFO dataset
-    let currAvailUfoDataset = availFilteredUfoDataset();
+    // Clear contents in 'tbody' element
+    tbody.html("");
 
     // Display filtered data in table
-    currAvailUfoDataset.forEach((d) => {
+    availFilteredUfoDataset().forEach((d) => {
         // Append "tr" to "tbody"
         let tr = tbody.append('tr');
         // Append "td" with filtered data to "tr"
@@ -192,7 +180,7 @@ function getCurrAvailFilter() {
     return currAvailFilter;
 }
 
-// .......... FUNCTION 3 ..........
+// .......... FUNCTION 4 ..........
 /**
  * Return boolean with "true" for no more filter can be applied and "false" the opposite
  */
@@ -209,6 +197,7 @@ function applyMoreFilter() {
         // If all data are the same, return false
         return false;
     } else {
+        // If not all data are the same, return true (applying new filter is possible)
         return true;
     }
 
@@ -216,9 +205,8 @@ function applyMoreFilter() {
 
 
 // ** ********************************************************************************************//
-//      FUNCTION OF EVENT LISTENER -- 'select' element -- filter name form -- "mousedown"         //
+//      FUNCTION FOR EVENT LISTENER -- 'select' element -- filter name form -- "mousedown"        //
 // ********************************************************************************************* *//
-
 /**
  * Display array of available filters as dropdown list in "filter name" form
  */
@@ -269,9 +257,8 @@ function formDisplayAvailFilters() {
 }
 
 // ** ********************************************************************************************//
-//        FUNCTION OF EVENT LISTENER -- 'select' element -- filter name form -- "change"          //
+//        FUNCTION FOR EVENT LISTENER -- 'select' element -- filter name form -- "change"         //
 // ********************************************************************************************* *//
-
 /**
  * Select filter in "filter name" form and generate array of filter values as dropdown list in "filter value" form
  */
@@ -316,9 +303,8 @@ function formSelectFilterName() {
 }
 
 // ** ********************************************************************************************//
-//        FUNCTION OF EVENT LISTENER -- 'select' element -- filter value form -- "change"         //
+//        FUNCTION FOR EVENT LISTENER -- 'select' element -- filter value form -- "change"        //
 // ********************************************************************************************* *//
-
 /**
  * Select filter value in "filter value" form
  */
@@ -361,19 +347,21 @@ function formSelectFilterValue() {
 
 
 // ** ********************************************************************************************//
-//          FUNCTION OF EVENT LISTENER -- 'button' element -- "Delete Filter" -- "click"          //
+//          FUNCTION FOR EVENT LISTENER -- 'button' element -- "Delete Filter" -- "click"         //
 // ********************************************************************************************* *//
 
-
+/**
+ * Delete filter name and value as well as the "Delete Filter" button itself on the same form layer
+ */
 function butDelFilter() {
 
     d3.selectAll('.btn-filter-del').on("click", function() {
         
+        // Check if more than one filter has been applied (only one form layer on webpage)
         if(Object.keys(usedFilterInfo).length < 2) {
-
+            // Pop up alert window and give info that the only form layer can not be deleted
             alert("NOT AN OPTION WITH ONLY ONE FILTER LAYER IN THE FORM !!!");
-
-            return false;
+        // Fire the event listener if there are more than one form layers on webpage
         } else {
 
             // Prevent the webpage from self-refreshing
