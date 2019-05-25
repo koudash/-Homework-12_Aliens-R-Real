@@ -38,6 +38,7 @@ const tableCol = ['datetime', 'city', 'state', 'country', 'shape', 'durationMinu
 formDisplayAvailFilters();
 formSelectFilterName();
 formSelectFilterValue();
+butDelFilter();
 
 // >>>>>>>>>>>>>>>    EVENT LISTENER    >>>>>>>>>>>>>>>
 // >>>>>>>>>>>>>>>  BUTTON: ADD FILTER  >>>>>>>>>>>>>>>
@@ -95,48 +96,11 @@ butAddEle.on("click", function() {
     formDisplayAvailFilters();
     formSelectFilterName();
     formSelectFilterValue();
+    butDelFilter();
 });
 
 
-// >>>>>>>>>>>>>>> EVENT LISTENER 5 >>>>>>>>>>>>>>>
-// >>>>>>>>>>>>>>>       START      >>>>>>>>>>>>>>>
 
-// Event listener for 'Delete Filter' button
-d3.selectAll('.btn-filter-del').on("click", function() {
-   
-    if (maxLayer === 1) {
-
-        alert('Not an option with only one filter layer in the form!!!');
-        
-    } else {
-
-        // Prevent the webpage from self-refreshing
-        d3.event.preventDefault();
-
-        // Retrieve active layer
-        let activeLayer = this.id.split('-')[3];
-        console.log(activeLayer)
-
-        // Generate 'id' names for 'li' elements in the same layer
-        let paralLiFilterId = basicLiTag + activeLayer;
-        let paralLiFilterValueId = basicLiValue + activeLayer;
-        let activeLiFilterDelId = basicLiDel + activeLayer;   
-
-        // Remove 'li' elements
-        d3.select(`#${paralLiFilterId}`).remove();    
-        d3.select(`#${paralLiFilterValueId}`).remove();    
-        d3.select(`#${activeLiFilterDelId}`).remove();
-
-        // Update "usedFilterInfo"
-        usedFilterInfo = usedFilterInfo.filter((d) => !Object.keys.includes(d));
-
-        // Enable "Add Filter" button if there is data in filtered UFO dataset
-        if (availFilteredUfoDataset() !== []) {
-            butAddEle.attr('disabled', null);
-        }
-    }
-
-});
 
 
 // >>>>>>>>>>>>>>> EVENT LISTENER 6 >>>>>>>>>>>>>>>
@@ -228,6 +192,29 @@ function getCurrAvailFilter() {
     return currAvailFilter;
 }
 
+// .......... FUNCTION 3 ..........
+/**
+ * Return boolean with "true" for no more filter can be applied and "false" the opposite
+ */
+function applyMoreFilter() {
+
+    // Remove "durationMinutes" and "comments" from available filtered UFO dataset
+    let truncDataset = availFilteredUfoDataset().forEach((d) => {
+        delete d.durationMinutes;
+        delete d.comments;
+    });
+    
+    // Check if all data in truncated available UFO dataset are the same
+    if (truncDataset.filter((d) => d !== truncDataset[0]).length === 0) {
+        // If all data are the same, return false
+        return false;
+    } else {
+        return true;
+    }
+
+}
+
+
 // ** ********************************************************************************************//
 //      FUNCTION OF EVENT LISTENER -- 'select' element -- filter name form -- "mousedown"         //
 // ********************************************************************************************* *//
@@ -237,7 +224,6 @@ function getCurrAvailFilter() {
  */
 function formDisplayAvailFilters() {
  
-    // Event listener ("mousedown") on active 'select' element for filter name
     d3.selectAll('.sel-filter-tag').on("mousedown", function() {     
  
         // . ............... Event validation and info retrival ............... .//
@@ -291,7 +277,6 @@ function formDisplayAvailFilters() {
  */
 function formSelectFilterName() {
 
-    // Event listener ("change") on active 'select' element for filter name
     d3.selectAll('.sel-filter-tag').on("change", function() {     
 
         // . ............... Event validation and info retrival ............... .//
@@ -300,8 +285,7 @@ function formSelectFilterName() {
         // Retrieve form text of fired event
         let eventText = this.value;
         // Validate firing of "change" event
-        console.log(`Event (tag) "change" fired: filter name of "${eventText}" and "${eventLayer}" layer in the form are retrieved.
-                    d3.selection has identified ${d3.selectAll('.sel-filter-tag').size()} qualified 'select' ele.`);
+        console.log(`Event (tag) "change" fired: filter name of "${eventText}" and "${eventLayer}" layer in the form are retrieved.`);
         
         // . ............... Application of retrival info ............... .//
         // Update object of used filter with current form layer as well as name of applied filter
@@ -339,8 +323,7 @@ function formSelectFilterName() {
  * Select filter value in "filter value" form
  */
 function formSelectFilterValue() {
-    
-    // Event listener ("change") on active 'select' element for filter name
+
     d3.selectAll('.sel-filter-value').on("change", function() {     
 
         // . ............... Event validation and info retrival ............... .//
@@ -349,8 +332,7 @@ function formSelectFilterValue() {
         // Retrieve form text of fired event
         let eventText = this.value;
         // Validate firing of "change" event
-        console.log(`Event (value) "change" fired: filter value of "${eventText}" and "${eventLayer}" layer in the form are retrieved.
-                    d3.selection has identified ${d3.selectAll('.sel-filter-tag').size()} qualified 'select' ele.`);
+        console.log(`Event (value) "change" fired: filter value of "${eventText}" and "${eventLayer}" layer in the form are retrieved.`);
 
         // . ............... Application of retrival info ............... .//
         // Update object of used filter with filter value for current form layer
@@ -374,6 +356,48 @@ function formSelectFilterValue() {
                 butAddEle.attr('disabled', null);
             }
         }
+    });
+}
 
+
+// ** ********************************************************************************************//
+//          FUNCTION OF EVENT LISTENER -- 'button' element -- "Delete Filter" -- "click"          //
+// ********************************************************************************************* *//
+
+
+function butDelFilter() {
+
+    d3.selectAll('.btn-filter-del').on("click", function() {
+        
+        if(Object.keys(usedFilterInfo).length < 2) {
+
+            alert("NOT AN OPTION WITH ONLY ONE FILTER LAYER IN THE FORM !!!");
+
+            return false;
+        } else {
+
+            // Prevent the webpage from self-refreshing
+            d3.event.preventDefault();
+
+            // Retrieve form layer of fired event
+            let eventLayer = this.id.split('-')[3];
+
+            // Determine 'id' names for 'li' elements in the same layer
+            let eventLiTagId = basicLiTag + eventLayer;
+            let eventLiValueId = basicLiValue + eventLayer;
+            let eventLiDelId = basicLiDel + eventLayer;
+            // Remove 'li' elements
+            d3.select(`#${eventLiTagId}`).remove();    
+            d3.select(`#${eventLiValueId}`).remove();    
+            d3.select(`#${eventLiDelId}`).remove();
+            
+            // Update object of used filter by removing data for current form layer 
+            delete usedFilterInfo[eventLayer];
+
+            // Enable "Add Filter" button if filter applying is possible
+            if (applyMoreFilter) {
+                butAddEle.attr('disabled', null);
+            }
+        }
     });
 }
