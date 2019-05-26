@@ -1,18 +1,6 @@
 # Homework-14_Aliens-R-Real
-<h3><strong>WEBPAGE DESCRIPTION</strong></h3><br/>"
-<p><strong>Warning</strong>: This webpage is the only proved-to-be-safe port on earth that connects database of the eye-witness reports for
-the extra-terrestrial (ET). Right in the middle of the webpage there is a dark color box with two dropdown menu in it. That's where we set 
-up the filter to call for specific reports from the database. Currently, we provide "datetime", "country", "state", "city", and "shape" filters
-to choose from. All you need to do is to go to the "filter" dropdown menu and choose one; then do the same thing on the right to select 
-the filter value. Want to set up multiple filters? No problem. Just click the green "Add Filter" button and a new layer of box will be created
-for you. As I mentioned, there are five filters available. So you can only have five layers of filters created at most. Once reaching the 
-threshold, the button will be disabled. Encountered an early disabled "Add Filter" button? That is because all five filters for your selected
-data are the same. Try altering your filters or simply delete one layer of filter, the "Add Filter" button will possibly be enabled again. Yes,
-the red "Delete Filter" button on the right of each layer is designated to delete all elements in the specific layer (including itself). One
-more thing I would like to mention is that you can not delete the last layer of filter. It just can not let you do it. A pop up alert will be
-activated in that scenario. Last thing: where is the data? You won't be able to see it unless you hit the "Submit" button disguised at bottom right 
-corner of the box. It is safer than any encryption method as we all believe that ETs are color-blinded for sky blue and white. All right, 
-enjoy your searching!</p><br/>
+<h3><strong>WEBPAGE DESCRIPTION</strong></h3><br/>
+<p><strong>Caution</strong>: This webpage is the only proved-to-be-safe port on earth that connects database of the eye-witness reports for the extra-terrestrial (ET). Right in the center there is a dark color box with two dropdown lists set in parallel. That's where to make calls for specific report(s) from the UFO database. You can choose from any one out of the "datetime", "country", "state", "city", and "shape" filters on the left list followed by selecting its available value form the one on the right. Setting up multiple filters is absolutely welcomed. To do that, you just need to click the green "Add Filter" button and a new layer of filter box will be created. The more filters being added, the less in numbers of available UFO dataset is. As mentioned, there are currently five filters available; therefore, a total of five layers cound be created at most on the webpage. Once the threshold is met, the button will be unclickable. Such event is encountered while only less than five layers have been created? That is because all five lilters for your selected data are teh same. Try adjusting the selection of filter(s) and value(s) or simply delete one layer of filter, the "Add Filter" button will probably be enabled again. Yes, the red "Delete Filter" button on the right of each data layer is designated to delete all_elements in the specific layer (including itself). One more thing is that you can not delete the last layer of filter. A pop up alert will be activated in that scenario. Last thing: WHERE IS THE DATA? You won't be able to see it unless you click the "Submit" button disguided at bottom right corner of the box. It is actually safer thatn any encryption method as we all believe that ETs are color-blinded for sky blue and white. All right, enjoy your searching!</p><br/>
 
 
 <h3><strong>DESIGN OF THE WEBPAGE</strong></h3><br/>
