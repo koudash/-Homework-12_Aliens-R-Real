@@ -26,5 +26,5 @@
 <ol>
 <li> Except "Submit" listener and "Add Filter" itself, all other listeners need to be updated to grab newly appended target element(s). 
 However, passing d3.selection to globally defined variable does not work</li>
-<li> The "mousedown" event is called twice if clicking on the box without selecting any fliter, causing an unexpected filter display that one filter name shows up twice with another filter name disappeared. HAVE NOT BEEN ADDRESSED YET. (UPDATE: addressed by adding an 'else' statement to append the "placeholder" back if not used.)
+<li> The "mousedown" event is called twice if clicking on the box without selecting any fliter, causing an unexpected filter display that one filter name shows up twice with another filter name disappeared. HAVE NOT BEEN ADDRESSED YET. (<strong>UPDATE: addressed by adding an 'else' statement to append the "placeholder" back if not used.</strong>)
 </ol>
