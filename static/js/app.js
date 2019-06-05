@@ -253,6 +253,8 @@ function formDisplayAvailFilters() {
         // Put back pre-existing displayed 'option' element because we want it also to be selectable
         if (eventText !== 'placeholder') {
             eventSelTagEle.append('option').attr('value', eventText).text(eventText);
+        } else {
+            eventSelTagEle.append('option').attr('value', 'placeholder').attr('selected', true).attr('hidden', true).text("Select a filter");
         }
         // Append available filters to 'option' element for display in dropdown menu
         availFilterArr.forEach((filter) => {
