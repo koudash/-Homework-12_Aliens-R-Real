@@ -63,22 +63,36 @@ butAddEle.on("click", function() {
     let newSelValueId = basicSelValue + newLayer;
     let newBtnDelId = basicBtnDel + newLayer;
 
-    // Append new 'li' element to 'ulTagEle', 'ulValueEle', and 'ulDelEle' with 'class' and 'id', respectively
+    // Append 'li' element to 'ulTagEle', 'ulValueEle', and 'ulDelEle' with 'class' and 'id', respectively
     let newLiTagEle = ulTagEle.append('li').attr('class', 'list-group-item form-control-lg my-5').attr('id', `${newLiTagId}`);
     let newLiValueEle = ulValueEle.append('li').attr('class', 'list-group-item form-control-lg my-5').attr('id', `${newLiValueId}`);
     let newLiDelEle = ulDelEle.append('li').attr('class', 'list-group-item form-control-lg my-5 px-0').attr('id', `${newLiDelId}`);
-    // Append new 'label' element to new 'li' in all forms, respectively
+    // Append 'label' element to new 'li' in all forms, respectively
     newLiTagEle.append('label').attr('for', `${newSelTagId}`).text("Filter");
     newLiValueEle.append('label').attr('for', `${newSelValueId}`).text("Filter value");
     newLiDelEle.append('br');
-    // Append new 'button' element to new 'li' with 'id', 'type', and 'class'
-    newLiDelEle.append('button').attr('id', `${newBtnDelId}`).attr('type', 'submit').attr('class', 'btn btn-filter-del btn-outline-danger font-weight-bold').text("Delete Filter");
-    // Append new 'select' element to new 'li' with 'class' and 'id', respectively
+    // Append 'button' element to new 'li' with 'id', 'type', and 'class'
+    newLiDelEle.append('button')
+        .attr('id', `${newBtnDelId}`)
+        .attr('type', 'submit')
+        .attr('class', 'btn btn-filter-del btn-outline-danger font-weight-bold')
+        .text("Delete Filter");
+    // Append 'select' element to new 'li' with 'class' and 'id', respectively
     let newSelTagEle = newLiTagEle.append('select').attr('class', 'sel-filter-tag').attr('id', `${newSelTagId}`);
     let newSelValueEle = newLiValueEle.append('select').attr('class', 'sel-filter-value').attr('id', `${newSelValueId}`);
-    // Append new 'option' element to new 'select' in the first two forms and set as placeholder for dropdown menu in both forms, respectively
-    newSelTagEle.append('option').attr('value', 'placeholder').attr('selected', true).attr('disabled', true).attr('hidden', true).text("Select a filter");
-    newSelValueEle.append('option').attr('value', 'placeholder').attr('selected', true).attr('disabled', true).attr('hidden', true).text("Choose a filter from left");
+    // Append 'option' element to new 'select' in the first two forms, set as placeholder for dropdown menu in both forms, respectively
+    newSelTagEle.append('option')
+        .attr('value', 'placeholder')
+        .attr('selected', true)
+        .attr('disabled', true)
+        .attr('hidden', true)
+        .text("Select a filter");
+    newSelValueEle.append('option')
+        .attr('value', 'placeholder')
+        .attr('selected', true)
+        .attr('disabled', true)
+        .attr('hidden', true)
+        .text("Choose a filter from left");
     
     // Check if there are more than 5 filters
     // Note that "currAvailLayerArr" is updated by ".shift()"
@@ -90,7 +104,8 @@ butAddEle.on("click", function() {
         butAddEle.attr('disabled', true);
     }
 
-    // VERY IMPORTANT: EVENT LISTENERS NEED TO BE UPDATED TO GRAB NEWLY APPENDED 'SELECT' ELEMENTS OR 'DELETE FILTER' BUTTON ONCE NEW FILTER IS ADDED
+    // VERY IMPORTANT: 
+    // EVENT LISTENERS NEED TO BE UPDATED TO GRAB NEWLY APPENDED 'SELECT' ELEMENTS OR 'DELETE FILTER' BUTTON ONCE NEW FILTER IS ADDED
     // Note that passing d3.selectAll('.sel-filter-tag') to globally defined variable does not work
     formDisplayAvailFilters();
     formSelectFilterName();
@@ -254,14 +269,19 @@ function formDisplayAvailFilters() {
         if (eventText !== 'placeholder') {
             eventSelTagEle.append('option').attr('value', eventText).text(eventText);
         } else {
-            eventSelTagEle.append('option').attr('value', 'placeholder').attr('selected', true).attr('hidden', true).text("Select a filter");
+            eventSelTagEle.append('option')
+                .attr('value', 'placeholder')
+                .attr('selected', true)
+                .attr('hidden', true)
+                .text("Select a filter");
         }
         // Append available filters to 'option' element for display in dropdown menu
         availFilterArr.forEach((filter) => {
             eventSelTagEle.append('option').attr('value', filter).text(filter);             
         });
         // THE APPENDING ORDER IS VERY IMPORTANT. PRE-EXISTING FILTER SHOULD BE APPENDED FIRSTLY AND INDIVIDUALLY
-        // PUTTING IT BACK TO AVAILABLE FILTER ARRAY TO BE APPENDED TOGETHER WILL OTHERWISE RENDER A SWITCH BY SHOWING THE FIRST FILTER NAME IN ALPHABETICAL ORDER, WHICH MESSED UP THE ENTIRE LIST
+        // PUTTING IT BACK TO AVAILABLE FILTER ARRAY TO BE APPENDED TOGETHER WILL OTHERWISE RENDER A SWITCH 
+        // BY SHOWING THE FIRST FILTER NAME IN ALPHABETICAL ORDER, WHICH MESSED UP THE ENTIRE LIST
 
     });
 
